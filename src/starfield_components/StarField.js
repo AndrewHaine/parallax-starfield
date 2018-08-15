@@ -50,8 +50,8 @@ class StarField {
       w: this.view.offsetWidth * window.devicePixelRatio,
       h: this.view.offsetHeight * window.devicePixelRatio,
       c: {
-        x: this.view.offsetWidth / 2,
-        y: this.view.offsetHeight / 2
+        x: (this.view.offsetWidth / 100) * this.opts.originX,
+        y: (this.view.offsetHeight / 100) * this.opts.originY
       }
     };
   }
@@ -109,22 +109,29 @@ class StarField {
     this.stars.push(star);
   }
   _addFieldListeners() {
-    window.addEventListener('mousemove', e => {
+
+    // TODO: allow this to be bound to the window (for fullscreen backgrounds)
+    this.view.addEventListener('mousemove', e => {
       this._moveHandler(e);
     });
     this.view.addEventListener('mouseleave', () => {
       this.stars.forEach(star => star.returnToNeutral());
+      this.mouseOrigin = false;
     });
   }
   _moveHandler(e) {
+
     let xDiff = e.clientX - this.dimensions.c.x,
         yDiff = e.clientY - this.dimensions.c.y;
 
+    if (!this.mouseOrigin) {
+      this.mouseOrigin = {x: xDiff, y: yDiff}
+    }
+
     this.stars.forEach(star => {
 
-      let targetX = (star.opts.xPos + ((star.offset.x - xDiff) * star.velocity));
-      let targetY = (star.opts.yPos + ((star.offset.y - yDiff) * star.velocity));
-      star.offset = {x: targetX, y: targetY};
+      let targetX = (star.opts.xPos + ((this.mouseOrigin.x - xDiff) * star.velocity));
+      let targetY = (star.opts.yPos + ((this.mouseOrigin.y - yDiff) * star.velocity));
 
       star.updatePositionOffset({ x: targetX, y: targetY});
     });

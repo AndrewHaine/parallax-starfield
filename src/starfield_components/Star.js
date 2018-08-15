@@ -10,8 +10,6 @@ class Star {
     this.velocity = (Math.random() * opts.sideLength) / (100 - this.opts.parallaxSpeed);
 
     this.animation = {};
-
-    this.animating = true;
     this.animation.currentTime = 1;
 
     this.targetX = this.opts.xPos;
@@ -19,11 +17,6 @@ class Star {
 
     this.originX = this.opts.xPos;
     this.originY = this.opts.yPos;
-
-    this.offset = {
-      x: 0,
-      y: 0
-    };
   }
   draw() {
     const star = this.ctx;
@@ -50,15 +43,12 @@ class Star {
     this.targetY = offset.y;
 
     this.animation.currentTime = 0.09;
-    this.animating = true;
 
   }
   returnToNeutral() {
     this.animation.currentTime = 0.09;
-
     this.targetX = this.opts.xPos;
     this.targetY = this.opts.yPos;
-
   }
   _moveTowards(x, y) {
 
@@ -72,7 +62,7 @@ class Star {
         this.x += t * dx;
         this.y += t * dy;
 
-        this.animation.currentTime += 0.005;
+        this.animation.currentTime += 0.002;
 
     }
   }
