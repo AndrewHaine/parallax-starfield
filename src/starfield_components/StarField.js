@@ -110,11 +110,12 @@ class StarField {
   }
   _addFieldListeners() {
 
-    // TODO: allow this to be bound to the window (for fullscreen backgrounds)
-    this.view.addEventListener('mousemove', e => {
+    let eventBase = this.opts.fullscreenBackground ? document : this.view;
+
+    eventBase.addEventListener('mousemove', e => {
       this._moveHandler(e);
     });
-    this.view.addEventListener('mouseleave', () => {
+    eventBase.addEventListener('mouseleave', () => {
       this.stars.forEach(star => star.returnToNeutral());
       this.mouseOrigin = false;
     });

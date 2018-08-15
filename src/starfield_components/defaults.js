@@ -1,5 +1,6 @@
 export default {
   bgColor: '#000',
+  fullscreenBackground: true,
   maxStarCount: 'fill',
   originX: 50,
   originY: 50,
