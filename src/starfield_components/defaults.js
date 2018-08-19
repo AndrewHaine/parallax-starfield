@@ -7,6 +7,7 @@ export default {
   parallax: true,
   parallaxSpeed: 50,
   progressiveFill: false,
+  resetOnMouseleave: true,
   starColor: '#fff',
   starSizeVariance: 2
 };

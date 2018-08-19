@@ -116,7 +116,9 @@ class StarField {
       this._moveHandler(e);
     });
     eventBase.addEventListener('mouseleave', () => {
-      this.stars.forEach(star => star.returnToNeutral());
+      if(this.opts.resetOnMouseleave) {
+        this.stars.forEach(star => star.returnToNeutral());
+      }
       this.mouseOrigin = false;
     });
   }
